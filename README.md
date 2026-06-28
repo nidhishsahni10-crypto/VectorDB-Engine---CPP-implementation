@@ -1,8 +1,8 @@
-# VectorDB — I Built a Vector Database from Scratch in C++
+# VectorDB -  Building a Vector Database from Scratch in C++
 
-Ever wondered what's actually happening inside Pinecone or Weaviate when you do a semantic search? I did too, so I built one from scratch to find out.
+Ever wondered what's actually happening inside AI when you do a semantic search? I did too, so I built one from scratch to find out.
 
-This is a fully working **Vector Database** written in C++, with a web UI you can actually play around with. It runs three different search algorithms side by side so you can compare them, and there's a full **RAG pipeline** hooked up to a local LLM via Ollama — no API keys, no cloud, everything runs on your laptop.
+This is a fully working **Vector Database** written in C++, with a web UI you can actually play around with. It runs three different search algorithms side by side so you can compare them, and there's a full **RAG pipeline** hooked up to a local LLM via Ollama - no API keys, no cloud, everything runs on your laptop.
 
 > This started as an educational project, but it turned into something I'm genuinely proud of. If you've ever been curious about how the internals of a vector DB work, this is a good place to start.
 
@@ -12,10 +12,10 @@ This is a fully working **Vector Database** written in C++, with a web UI you ca
 
 | Feature | What it does |
 |---|---|
-| **3 Search Algorithms** | HNSW (the production-grade one), KD-Tree, and plain Brute Force — you can run all three and watch the speed difference |
+| **3 Search Algorithms** | HNSW (the production-grade one), KD-Tree, and plain Brute Force - you can run all three and watch the speed difference |
 | **3 Distance Metrics** | Cosine similarity, Euclidean distance, Manhattan distance |
 | **16D Demo Vectors** | 20 pre-loaded vectors across 4 categories (CS, Math, Food, Sports) so you can jump in immediately |
-| **2D PCA Scatter Plot** | Live visualization of the semantic space — you can actually *see* the clusters form |
+| **2D PCA Scatter Plot** | Live visualization of the semantic space - you can actually *see* the clusters form |
 | **Real Document Embedding** | Paste any text → Ollama converts it to a real 768D vector with `nomic-embed-text` |
 | **RAG Pipeline** | Ask questions about your documents → HNSW finds the relevant chunks → a local LLM writes the answer |
 | **Full REST API** | CRUD endpoints for insert, delete, search, benchmark, and HNSW graph inspection |
@@ -43,7 +43,7 @@ Ollama (llama3.2)                  ← reads the retrieved chunks and writes an 
 Answer
 ```
 
-The star of the show is **HNSW (Hierarchical Navigable Small World)** — the same algorithm that powers Pinecone, Weaviate, Chroma, and Milvus. It builds a multilayer graph where each layer gets progressively sparser. Searches start at the top (the "highway") and zoom in layer by layer, which gets you O(log N) performance instead of the O(N) slog of brute force.
+The star of the show is **HNSW (Hierarchical Navigable Small World)** - the same algorithm that powers Pinecone, Weaviate, Chroma, and Milvus. It builds a multilayer graph where each layer gets progressively sparser. Searches start at the top (the "highway") and zoom in layer by layer, which gets you O(log N) performance instead of the O(N) slog of brute force.
 
 ---
 
@@ -51,15 +51,15 @@ The star of the show is **HNSW (Hierarchical Navigable Small World)** — the sa
 
 Just three things:
 
-1. **MSYS2** — gives you the g++ compiler on Windows
-2. **Git** — for cloning the repo
-3. **Ollama** — runs the AI models locally
+1. **MSYS2** - gives you the g++ compiler on Windows
+2. **Git** - for cloning the repo
+3. **Ollama** - runs the AI models locally
 
 ---
 
 ## Setup (Windows, step by step)
 
-### Step 1 — Get the C++ compiler (MSYS2)
+### Step 1 - Get the C++ compiler (MSYS2)
 
 1. Head to **https://www.msys2.org** and grab the installer
 2. Run it, keep the default path (`C:\msys64`)
@@ -86,11 +86,11 @@ pacman -S mingw-w64-ucrt-x86_64-gcc
    ```
    g++ --version
    ```
-   You should see something like `g++ (GCC) 15.x.x` — you're good.
+   You should see something like `g++ (GCC) 15.x.x` - you're good.
 
 ---
 
-### Step 2 — Install Git
+### Step 2 - Install Git
 
 Nothing fancy here:
 
@@ -103,10 +103,10 @@ git --version
 
 ---
 
-### Step 3 — Install Ollama (the local AI models)
+### Step 3 - Install Ollama (the local AI models)
 
 1. Go to **https://ollama.com** and download the Windows version
-2. Install it — Ollama will start automatically and sit in your system tray
+2. Install it - Ollama will start automatically and sit in your system tray
 3. Open PowerShell and pull the two models you'll need:
 
 ```powershell
@@ -128,7 +128,7 @@ ollama list
 
 ---
 
-### Step 4 — Clone the repo
+### Step 4 - Clone the repo
 
 ```powershell
 git clone https://github.com/YOUR_USERNAME/VectorDB.git
@@ -139,7 +139,7 @@ cd VectorDB
 
 ---
 
-### Step 5 — Compile
+### Step 5 - Compile
 
 Inside the `VectorDB` folder:
 
@@ -152,19 +152,19 @@ This spits out `db.exe`. Takes maybe 10–20 seconds.
 > **If something goes wrong:**
 > - `g++: command not found` → MSYS2 isn't in your PATH yet, go back to Step 1
 > - `undefined reference to WSA...` → you're missing `-lws2_32` at the end of the command
-> - Taking forever? Drop the `-O2` flag — it'll compile faster (but the binary runs slower)
+> - Taking forever? Drop the `-O2` flag - it'll compile faster (but the binary runs slower)
 
 ---
 
-### Step 6 — Start everything up
+### Step 6 - Start everything up
 
-**Terminal 1** — Make sure Ollama is running:
+**Terminal 1** - Make sure Ollama is running:
 ```powershell
 ollama serve
 ```
 *(If it's already running in your system tray, skip this.)*
 
-**Terminal 2** — Start the VectorDB server:
+**Terminal 2** - Start the VectorDB server:
 ```powershell
 ./db
 ```
@@ -189,18 +189,18 @@ http://localhost:8080
 
 ### Tab 1: Search (the demo vectors)
 
-This is the most fun tab to start with. Type in any concept — `binary tree`, `sushi`, `basketball`, `calculus` — pick an algorithm and a distance metric, and hit **⚡ SEARCH**. Results show up with distances, and the matching point lights up on the scatter plot.
+This is the most fun tab to start with. Type in any concept - `binary tree`, `sushi`, `basketball`, `calculus` - pick an algorithm and a distance metric, and hit **⚡ SEARCH**. Results show up with distances, and the matching point lights up on the scatter plot.
 
 Hit **▶ COMPARE ALL ALGOS** to run all three algorithms back-to-back and see the actual timing difference.
 
-The scatter plot shows all 20 vectors projected down to 2D using PCA. Notice how the four categories (CS, Math, Food, Sports) naturally cluster together — that's semantic similarity made visible.
+The scatter plot shows all 20 vectors projected down to 2D using PCA. Notice how the four categories (CS, Math, Food, Sports) naturally cluster together - that's semantic similarity made visible.
 
 ### Tab 2: Documents (real embeddings)
 
 This is where it gets real. Ollama generates actual **768-dimensional embeddings** from whatever text you paste in.
 
 1. Give it a title (e.g., `Operating Systems Notes`)
-2. Paste in your text — lecture notes, textbook paragraphs, anything
+2. Paste in your text - lecture notes, textbook paragraphs, anything
 3. Click **⚡ EMBED & INSERT**
 
 Long documents get automatically split into overlapping 250-word chunks. Each chunk gets its own embedding and lives in a separate HNSW index.
@@ -242,10 +242,10 @@ The server exposes a full REST API at `http://localhost:8080` if you want to pok
 | Method | Endpoint | Body | What it does |
 |---|---|---|---|
 | `POST` | `/doc/insert` | `{"title":"...","text":"..."}` | Embed and store a document |
-| `GET` | `/doc/list` | — | List all stored documents |
-| `DELETE` | `/doc/delete/:id` | — | Remove a document chunk |
+| `GET` | `/doc/list` | - | List all stored documents |
+| `DELETE` | `/doc/delete/:id` | - | Remove a document chunk |
 | `POST` | `/doc/ask` | `{"question":"...","k":3}` | RAG: retrieve + generate answer |
-| `GET` | `/status` | — | Ollama connection and model info |
+| `GET` | `/status` | - | Ollama connection and model info |
 
 ### Quick examples
 
@@ -287,7 +287,7 @@ OllamaClient        HTTP client talking to /api/embeddings + /api/generate
 
 ## A bit more on the algorithms
 
-### HNSW — why it's the one that matters
+### HNSW - why it's the one that matters
 
 When you insert a node, it randomly gets assigned to a max layer. Layer 0 has every node, densely connected; higher layers have exponentially fewer nodes with longer-range connections (think: highway exits vs local streets).
 
@@ -297,7 +297,7 @@ When you insert a node, it randomly gets assigned to a max layer. Layer 0 has ev
 
 **Why it's fast:** The upper layers get you to the right neighborhood quickly. Layer 0 closes in on the answer. You never scan everything.
 
-### KD-Tree — fast until it isn't
+### KD-Tree - fast until it isn't
 
 Binary space partitioning along alternating dimensions. The clever bit: it prunes entire subtrees when the closest possible point in that subtree can't beat your current best.
 
@@ -305,7 +305,7 @@ The catch: this pruning falls apart in high dimensions. Once you're past ~20 dim
 
 ### Why HNSW still wins at 768D
 
-KD-Tree's pruning relies on axis-aligned distance bounds. In high-dimensional space, almost everything lives near the surface of the hypersphere, so those bounds never help. HNSW's graph structure sidesteps this entirely — it doesn't care how many dimensions you have.
+KD-Tree's pruning relies on axis-aligned distance bounds. In high-dimensional space, almost everything lives near the surface of the hypersphere, so those bounds never help. HNSW's graph structure sidesteps this entirely - it doesn't care how many dimensions you have.
 
 ---
 
@@ -314,14 +314,14 @@ KD-Tree's pruning relies on axis-aligned distance bounds. In high-dimensional sp
 | Problem | What to try |
 |---|---|
 | `Ollama: OFFLINE` in the header | Run `ollama serve` in a terminal |
-| Embedding is taking forever | Ollama is probably downloading the model for the first time — give it a couple minutes |
+| Embedding is taking forever | Ollama is probably downloading the model for the first time - give it a couple minutes |
 | `g++: command not found` | Add `C:\msys64\ucrt64\bin` to your Windows PATH (Step 1) |
 | Port 8080 already in use | Find the process: `netstat -ano \| findstr 8080`, then kill it: `taskkill /PID <pid> /F` |
-| LLM responses are really slow | Totally normal on a laptop CPU — llama3.2 takes 10–30s. See below for a faster option. |
+| LLM responses are really slow | Totally normal on a laptop CPU - llama3.2 takes 10–30s. See below for a faster option. |
 
 ### Switching to a smaller model
 
-If llama3.2 is grinding your laptop to a halt, try the 1B version — it's much faster:
+If llama3.2 is grinding your laptop to a halt, try the 1B version - it's much faster:
 
 ```powershell
 ollama pull llama3.2:1b
@@ -333,9 +333,3 @@ std::string genModel = "llama3.2:1b";
 ```
 
 Recompile and restart. Noticeably snappier.
-
----
-
-## License
-
-MIT. Use it however you want.
